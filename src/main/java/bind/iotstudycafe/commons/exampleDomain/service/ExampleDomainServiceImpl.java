@@ -1,11 +1,11 @@
 package bind.iotstudycafe.commons.exampleDomain.service;
 
 import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.commons.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.commons.exampleDomain.repository.ExampleDomainRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +36,15 @@ public class ExampleDomainServiceImpl implements ExampleDomainService {
     @Override
     public List<ExampleDomain> findExampleDomains(ExampleDomain exampleDomain) {
         return exampleDomainRepository.findExampleDomains(exampleDomain);
+    }
+
+    @Override
+    public void update(Long id, ExampleDomainUpdate updateParam) {
+        exampleDomainRepository.update(id, updateParam);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        exampleDomainRepository.deleteById(id);
     }
 }

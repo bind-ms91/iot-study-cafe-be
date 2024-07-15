@@ -17,7 +17,7 @@ class ExampleDomainServiceTest {
     @Test
     void findByIdToEntity() {
 
-        ExampleDomain exampleDomain = new ExampleDomain("ms91", "1111", "Chominseong", 23);
+        ExampleDomain exampleDomain = new ExampleDomain("ms90", "1111", "Chominseong", 20);
 
         exampleDomainService.save(exampleDomain);
 
@@ -29,4 +29,5 @@ class ExampleDomainServiceTest {
         Assertions.assertThat(exampleDomain).isEqualTo(findExampleDomain);
 
     }
+
 }

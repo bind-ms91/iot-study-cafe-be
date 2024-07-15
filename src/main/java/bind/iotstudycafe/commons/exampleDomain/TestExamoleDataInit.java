@@ -19,10 +19,12 @@ public class TestExamoleDataInit {
     @PostConstruct
     public void init() {
 
-        ExampleDomain exampleDomain = new ExampleDomain("ms91", "1234", "Chominseong", 23);
+        ExampleDomain exampleDomain1 = new ExampleDomain("ms91", "1234", "Chominseong", 21);
+        ExampleDomain exampleDomain2 = new ExampleDomain("ms92", "1234", "Chominseong", 22);
 
-        exampleDomainRepository.save(exampleDomain);
 
+        exampleDomainRepository.save(exampleDomain1);
+        exampleDomainRepository.save(exampleDomain2);
     }
 
 }

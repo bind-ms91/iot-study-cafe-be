@@ -1,9 +1,8 @@
 package bind.iotstudycafe.commons.exampleDomain.repository.memory;
 
 import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.commons.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.commons.exampleDomain.repository.ExampleDomainRepository;
-import bind.iotstudycafe.member.domain.Member;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
@@ -56,24 +55,22 @@ public class MemoryExampleDomainRepository implements ExampleDomainRepository {
                 .collect(Collectors.toList());
     }
 
-    //    @Override
-//    public void update(Long id, MemberUpdateDto updateParam) {
-//
-//        Member findMember = findById(id).orElseThrow();
-//        findMember.setMemberGrade(updateParam.getMemberGrade());
-//        findMember.setMemberPassword(updateParam.getMemberPassword());
-//        findMember.setMemberName(updateParam.getMemberName());
-//        findMember.setAge(updateParam.getAge());
-//
-//    }
-//
-//    @Override
-//    public void delete(Long id) {
-//        store.remove(id);
-//    }
-//
-//    public void clearStore() {
-//        store.clear();
-//    }
+    @Override
+    public void update(Long id, ExampleDomainUpdate updateParam) {
+
+        ExampleDomain findMember = findById(id).orElseThrow();
+        findMember.setName(updateParam.getName());
+        findMember.setPassword(updateParam.getPassword());
+        findMember.setAge(updateParam.getAge());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
+
+    public void clearStore() {
+        store.clear();
+    }
 
 }
