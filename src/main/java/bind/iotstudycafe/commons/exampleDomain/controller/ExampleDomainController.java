@@ -76,8 +76,11 @@ public class ExampleDomainController {
 //    }
 
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Long id
-                        ,@Validated @RequestBody ExampleDomainUpdate updateParam) {
+    public void update(@PathVariable Long id,
+                       @Validated @RequestBody ExampleDomainUpdate updateParam) {
+
+        log.info("ExampleDomainController.update post id: {}", id);
+        log.info("ExampleDomainController.update updateParam: {}", updateParam);
 
         exampleDomainService.update(id, updateParam);
     }
