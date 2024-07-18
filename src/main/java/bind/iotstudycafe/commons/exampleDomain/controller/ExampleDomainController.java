@@ -84,4 +84,12 @@ public class ExampleDomainController {
 
         exampleDomainService.update(id, updateParam);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public void update(@PathVariable Long id) {
+
+        log.info("ExampleDomainController.update post id: {}", id);
+
+        exampleDomainService.deleteById(id);
+    }
 }

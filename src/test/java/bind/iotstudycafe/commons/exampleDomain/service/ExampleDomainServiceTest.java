@@ -11,6 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.crossstore.ChangeSetPersister;
+
+import java.util.NoSuchElementException;
 
 @SpringBootTest
 @Slf4j
@@ -67,6 +70,27 @@ class ExampleDomainServiceTest {
         Assertions.assertThat(exampleDomain.getPassword()).isEqualTo(updateParam.getPassword());
         Assertions.assertThat(exampleDomain.getName()).isEqualTo(updateParam.getName());
         Assertions.assertThat(exampleDomain.getAge()).isEqualTo(updateParam.getAge());
+
+    }
+
+    @Test
+    void delete() {
+
+        //given
+        ExampleDomain exampleDomain = new ExampleDomain("ms90", "1111", "Chominseong", 20);
+
+        exampleDomainService.save(exampleDomain);
+
+        Long id = exampleDomain.getId();
+
+        log.info("exampleDomain: {}", exampleDomain);
+
+        //when
+        exampleDomainService.deleteById(id);
+
+        //then
+        Assertions.assertThatThrownBy(()-> exampleDomainService.findById(id).get())
+                .isInstanceOf(NoSuchElementException.class);
 
     }
 
