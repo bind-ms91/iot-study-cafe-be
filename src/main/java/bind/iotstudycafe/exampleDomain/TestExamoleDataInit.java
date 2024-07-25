@@ -1,7 +1,7 @@
-package bind.iotstudycafe.commons.exampleDomain;
+package bind.iotstudycafe.exampleDomain;
 
-import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
-import bind.iotstudycafe.commons.exampleDomain.repository.ExampleDomainRepository;
+import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

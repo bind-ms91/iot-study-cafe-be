@@ -1,12 +1,12 @@
-package bind.iotstudycafe.commons.exampleDomain.repository;
+package bind.iotstudycafe.exampleDomain.service;
 
-import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
-import bind.iotstudycafe.commons.exampleDomain.dto.ExampleDomainUpdate;
+import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ExampleDomainRepository {
+public interface ExampleDomainService {
 
     ExampleDomain save(ExampleDomain exampleDomain);
 
@@ -17,4 +17,5 @@ public interface ExampleDomainRepository {
     void update(Long id, ExampleDomainUpdate updateParam);
 
     void deleteById(Long id);
+
 }

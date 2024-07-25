@@ -1,17 +1,16 @@
 package bind.iotstudycafe.commons.exampleDomain.service;
 
-import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
-import bind.iotstudycafe.commons.exampleDomain.dto.ExampleDomainUpdate;
-import bind.iotstudycafe.commons.exampleDomain.repository.ExampleDomainRepository;
-import bind.iotstudycafe.commons.exampleDomain.repository.memory.MemoryExampleDomainRepository;
-import bind.iotstudycafe.member.service.MemberService;
+import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
+import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
+import bind.iotstudycafe.exampleDomain.repository.memory.MemoryExampleDomainRepository;
+import bind.iotstudycafe.exampleDomain.service.ExampleDomainService;
+import bind.iotstudycafe.exampleDomain.service.ExampleDomainServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.NoSuchElementException;
 

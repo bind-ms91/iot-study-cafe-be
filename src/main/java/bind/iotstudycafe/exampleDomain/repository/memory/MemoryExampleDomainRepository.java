@@ -1,8 +1,8 @@
-package bind.iotstudycafe.commons.exampleDomain.repository.memory;
+package bind.iotstudycafe.exampleDomain.repository.memory;
 
-import bind.iotstudycafe.commons.exampleDomain.domain.ExampleDomain;
-import bind.iotstudycafe.commons.exampleDomain.dto.ExampleDomainUpdate;
-import bind.iotstudycafe.commons.exampleDomain.repository.ExampleDomainRepository;
+import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
+import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
