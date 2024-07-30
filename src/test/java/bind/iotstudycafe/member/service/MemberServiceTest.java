@@ -1,14 +1,11 @@
 package bind.iotstudycafe.member.service;
 
-import bind.iotstudycafe.member.domain.MemberGrade;
 import bind.iotstudycafe.member.domain.Member;
+import bind.iotstudycafe.member.domain.MemberGrade;
 import bind.iotstudycafe.member.dto.MemberSaveDto;
 import bind.iotstudycafe.member.dto.MemberSearchCond;
 import bind.iotstudycafe.member.dto.MemberUpdateDto;
-import bind.iotstudycafe.member.repository.MemberRepositoryV1;
-import bind.iotstudycafe.member.repository.memory.MemoryMemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,24 +23,21 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class MemberServiceTest {
 
     @Autowired
-    MemberRepositoryV1 memberRepository;
-
-    @Autowired
     MemberService memberService;
-
-    @AfterEach
-    void afterEach() {
-        //MemoryRepository 사용시 제한적으로 사용
-        if(memberRepository instanceof MemoryMemberRepository) {
-            ((MemoryMemberRepository) memberRepository).clearStore();
-        }
-    }
 
     @Test
     void save() {
 
         //given
-        MemberSaveDto member = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+        Member member = new Member();
+
+        member.setMemberId(memberSaveDto.getMemberId());
+        member.setMemberPassword(memberSaveDto.getMemberPassword());
+        member.setMemberName(memberSaveDto.getMemberName());
+        member.setAge(memberSaveDto.getAge());
+        member.setMemberGrade(memberSaveDto.getMemberGrade());
+
 
         //when
         Member savedMember = memberService.save(member);
@@ -62,7 +56,14 @@ class MemberServiceTest {
     void findByMemberId() {
 
         //given
-        MemberSaveDto member = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+
+        Member member = new Member();
+        member.setMemberId(memberSaveDto.getMemberId());
+        member.setMemberPassword(memberSaveDto.getMemberPassword());
+        member.setMemberName(memberSaveDto.getMemberName());
+        member.setAge(memberSaveDto.getAge());
+        member.setMemberGrade(memberSaveDto.getMemberGrade());
 
         //when
         Member savedMember = memberService.save(member);
@@ -80,7 +81,15 @@ class MemberServiceTest {
     void update() {
 
         //given
-        MemberSaveDto member = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+
+        Member member = new Member();
+        member.setMemberId(memberSaveDto.getMemberId());
+        member.setMemberPassword(memberSaveDto.getMemberPassword());
+        member.setMemberName(memberSaveDto.getMemberName());
+        member.setAge(memberSaveDto.getAge());
+        member.setMemberGrade(memberSaveDto.getMemberGrade());
+
         Member savedMember = memberService.save(member);
         Long memberId = savedMember.getId();
 
@@ -100,15 +109,36 @@ class MemberServiceTest {
     }
 
 
-
-
     @Test
     void findMembers() {
 
         //given
-        MemberSaveDto member1 = new MemberSaveDto("ms91", "123", "조민성1", 23, "OWNER");
-        MemberSaveDto member2 = new MemberSaveDto("ms92", "1234", "조민성2", 22, "OPERATOR");
-        MemberSaveDto member3 = new MemberSaveDto("ms93", "1235", "조민성3", 21, "BASIC");
+        MemberSaveDto memberSaveDto1 = new MemberSaveDto("ms91", "123", "조민성1", 23, "OWNER");
+        MemberSaveDto memberSaveDto2 = new MemberSaveDto("ms92", "1234", "조민성2", 22, "OPERATOR");
+        MemberSaveDto memberSaveDto3 = new MemberSaveDto("ms93", "1235", "조민성3", 21, "BASIC");
+
+        Member member1 = new Member();
+        Member member2 = new Member();
+        Member member3 = new Member();
+
+        member1.setMemberId(memberSaveDto1.getMemberId());
+        member1.setMemberPassword(memberSaveDto1.getMemberPassword());
+        member1.setMemberName(memberSaveDto1.getMemberName());
+        member1.setAge(memberSaveDto1.getAge());
+        member1.setMemberGrade(memberSaveDto1.getMemberGrade());
+
+        member2.setMemberId(memberSaveDto2.getMemberId());
+        member2.setMemberPassword(memberSaveDto2.getMemberPassword());
+        member2.setMemberName(memberSaveDto2.getMemberName());
+        member2.setAge(memberSaveDto2.getAge());
+        member2.setMemberGrade(memberSaveDto2.getMemberGrade());
+
+        member3.setMemberId(memberSaveDto3.getMemberId());
+        member3.setMemberPassword(memberSaveDto3.getMemberPassword());
+        member3.setMemberName(memberSaveDto3.getMemberName());
+        member3.setAge(memberSaveDto3.getAge());
+        member3.setMemberGrade(memberSaveDto3.getMemberGrade());
+
 
         Member savedMember1 = memberService.save(member1);
         Member savedMember2 = memberService.save(member2);
@@ -148,7 +178,15 @@ class MemberServiceTest {
     void deleteById() {
 
         //given
-        MemberSaveDto member = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
+
+        Member member = new Member();
+        member.setMemberId(memberSaveDto.getMemberId());
+        member.setMemberPassword(memberSaveDto.getMemberPassword());
+        member.setMemberName(memberSaveDto.getMemberName());
+        member.setAge(memberSaveDto.getAge());
+        member.setMemberGrade(memberSaveDto.getMemberGrade());
+
         Member savedMember = memberService.save(member);
         Long memberId = savedMember.getId();
         Member findMember = memberService.findById(memberId).get();
@@ -162,7 +200,7 @@ class MemberServiceTest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
-    void search(String userId, String userName, Integer maxAge,  Integer minAge, String memberGrade, Member... members) {
+    void search(String userId, String userName, Integer maxAge, Integer minAge, String memberGrade, Member... members) {
         List<Member> result = memberService.findAll(new MemberSearchCond(userId, userName, maxAge, minAge, memberGrade));
         assertThat(result).containsExactly(members);
     }

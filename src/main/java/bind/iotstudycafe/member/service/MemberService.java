@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface MemberService {
 
-    Member save(MemberSaveDto memberSaveDto);
+    Member save(Member member);
 
     Optional<Member> findById(Long id);
 

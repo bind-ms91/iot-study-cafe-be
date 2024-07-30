@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TestExamoleDataInit {
+public class TestExampleDataInit {
 
     private final ExampleDomainRepository exampleDomainRepository;
 

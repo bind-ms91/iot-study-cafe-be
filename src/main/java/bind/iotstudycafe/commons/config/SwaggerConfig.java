@@ -38,7 +38,7 @@ public class SwaggerConfig {
         @Bean
         public GroupedOpenApi publicApi() {
 
-                String[] pathsToMatch = {"**"};
+                String[] pathsToMatch = {"/**"};
                 String[] pathsToExclude = {"/example/**"};
 
                 return GroupedOpenApi.builder()
