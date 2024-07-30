@@ -108,9 +108,9 @@ public class ExampleDomainController {
 
     @Operation(summary = "삭제", description = "삭제")
     @DeleteMapping("/delete/{id}")
-    public void update(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
 
-        log.info("ExampleDomainController.update post id: {}", id);
+        log.info("ExampleDomainController.delete post id: {}", id);
 
         exampleDomainService.deleteById(id);
     }
