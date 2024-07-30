@@ -92,11 +92,7 @@ public class ExampleDomainController {
 
         log.info("ExampleDomainController.findExampleDomains search cond: {}", exampleDomainSearchCond);
 
-        ExampleDomain exampleDomain = new ExampleDomain();
-        exampleDomain.setName(exampleDomainSearchCond.getName());
-        exampleDomain.setAge(exampleDomainSearchCond.getAge());
-
-        return exampleDomainService.findExampleDomains(exampleDomain);
+        return exampleDomainService.findExampleDomains(exampleDomainSearchCond);
     }
 
     @Operation(summary = "수정", description = "수정")

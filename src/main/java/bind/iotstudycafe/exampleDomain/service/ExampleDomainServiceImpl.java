@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain.service;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class ExampleDomainServiceImpl implements ExampleDomainService {
     }
 
     @Override
-    public List<ExampleDomain> findExampleDomains(ExampleDomain exampleDomain) {
-        return exampleDomainRepository.findExampleDomains(exampleDomain);
+    public List<ExampleDomain> findExampleDomains(ExampleDomainSearchCond exampleDomainSearchCond) {
+        return exampleDomainRepository.findExampleDomains(exampleDomainSearchCond);
     }
 
     @Override

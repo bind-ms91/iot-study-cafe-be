@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain.repository.memory;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import org.springframework.stereotype.Repository;
@@ -34,11 +35,11 @@ public class MemoryExampleDomainRepository implements ExampleDomainRepository {
     }
 
     @Override
-    public List<ExampleDomain> findExampleDomains(ExampleDomain exampleDomain) {
+    public List<ExampleDomain> findExampleDomains(ExampleDomainSearchCond exampleDomainSearchCond) {
 
 
-        String name = exampleDomain.getName();
-        Integer age = exampleDomain.getAge();
+        String name = exampleDomainSearchCond.getName();
+        Integer age = exampleDomainSearchCond.getAge();
 
         return store.values().stream()
                 .filter(example -> {
