@@ -5,10 +5,14 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 //@DynamicInsert
-public class Member {
+public class Member implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;        //seq

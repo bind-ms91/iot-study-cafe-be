@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name = "회원", description = "회원도메인")
+@Tag(name = "회원", description = "회원 컨트롤러")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @Operation(summary = "저장", description = "저장",
-            responses = {@ApiResponse(responseCode = "200", description = "저장 성공", content = @Content(schema = @Schema(implementation = ExampleDomain.class)))}
+            responses = {@ApiResponse(responseCode = "200", description = "저장 성공", content = @Content(schema = @Schema(implementation = Member.class)))}
     )
     @PostMapping("/save")
     public Member save(@Validated @RequestBody MemberSaveDto memberSaveDto) {
@@ -54,7 +54,7 @@ public class MemberController {
 
     @Operation(summary = "id로 조회", description = "id로 조회",
             parameters = {@Parameter(name = "id", description = "id")},
-            responses = {@ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = ExampleDomain.class)))}
+            responses = {@ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = Member.class)))}
     )
     @GetMapping("/{id}")
     public Optional<Member> findByIdToEntity(@PathVariable Long id) {
@@ -63,7 +63,7 @@ public class MemberController {
     }
 
     @Operation(summary = "리스트 조회", description = "리스트 조회",
-            responses = {@ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = ExampleDomain.class)))}
+            responses = {@ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = Member.class)))}
     )
     @GetMapping("/list")
     public List<Member> findExampleDomains(@Validated @ParameterObject @ModelAttribute MemberSearchCond memberSearchCond) {

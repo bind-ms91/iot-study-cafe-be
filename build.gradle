@@ -51,6 +51,13 @@ dependencies {
 	//H2 데이터베이스 추가
 	runtimeOnly 'com.h2database:h2'
 
+	//redis 사용
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
+
+	//스프링 시큐리티
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	//querydsl dependencies 추가(스프링부트 3.0 이상)
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
