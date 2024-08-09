@@ -35,7 +35,7 @@ public class EnumValidator implements ConstraintValidator<EnumValue, String> {
 
         if (!isValid) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(enumValue.customMessage().getMessage())
+            context.buildConstraintViolationWithTemplate(getErrorMessage(enumValue.enumClass()))
                     .addConstraintViolation();
         }
 
@@ -51,4 +51,11 @@ public class EnumValidator implements ConstraintValidator<EnumValue, String> {
         return value.trim().equals(enumConstant.name());
     }
 
+    private String getErrorMessage(Class<? extends Enum<?>> enumClass) {
+        if (enumClass == MemberGrade.class) {
+            return EnumValidatorMessage.MEMBER_GRADE.getMessage();
+        } else {
+            return "유효하지 않은 값입니다.";
+        }
+    }
 }

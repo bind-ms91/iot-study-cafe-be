@@ -16,7 +16,7 @@ public class MemberUpdateDto {
     private String memberName;
     private int age;
 
-    @EnumValue(enumClass = MemberGrade.class, customMessage = EnumValidatorMessage.MEMBER_GRADE, ignoreCase = true)
+    @EnumValue(enumClass = MemberGrade.class, ignoreCase = true)
     private String memberGrade;
 
 }

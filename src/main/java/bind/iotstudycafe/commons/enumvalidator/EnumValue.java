@@ -16,9 +16,6 @@ public @interface EnumValue {
     // 검증할 ENUM 클래스
     Class<? extends Enum<?>> enumClass();
 
-    // 검증 실패 시 출력할 메시지
-    EnumValidatorMessage customMessage();
-
     // 기본 검증 실패 메시지
     String message() default "유효하지 않은 값입니다.";;
 
