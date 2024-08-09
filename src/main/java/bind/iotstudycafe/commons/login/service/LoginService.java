@@ -25,7 +25,9 @@ public class LoginService {
 
         //TODO 로그인 예외처리
         if (findMemberOptional.isPresent()) {
-            return findMemberOptional.filter(m -> m.getMemberPassword().equals(loginDto.getPassword())).orElse(null);
+            return findMemberOptional.filter(m ->
+                    m.getMemberId().equals(loginDto.getLoginId()) && m.getMemberPassword().equals(loginDto.getPassword()))
+                    .orElse(null);
         }
 
         return null;

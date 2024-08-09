@@ -74,19 +74,24 @@ public class LoginController {
     @Operation(summary = "로그인", description = "로그인",
             responses = {@ApiResponse(responseCode = "200", description = "로그인 성공")}
     )
-
     @PostMapping("/login")
-    private ResponseEntity<Void> login(@Validated @RequestBody LoginDto loginDto, final HttpServletRequest httpRequest) {
+    private ResponseEntity<Member> login(@Validated @RequestBody LoginDto loginDto, HttpServletRequest httpRequest) {
 
         Member loginMember = loginService.login(loginDto);
 
         log.info("loginMember: {}", loginMember);
 
+        if(loginMember == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        //로그인 성공 처리
         HttpSession session = httpRequest.getSession();
-        session.setAttribute("memberId", loginMember);
+        //세션에 로그인 회원 정보 보관
+        session.setAttribute("loginMember", loginMember);
         session.setMaxInactiveInterval(3600);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(loginMember);
     }
 
 }
