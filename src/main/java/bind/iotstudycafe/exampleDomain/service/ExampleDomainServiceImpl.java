@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain.service;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
@@ -21,7 +22,14 @@ public class ExampleDomainServiceImpl implements ExampleDomainService {
     private final ExampleDomainRepository exampleDomainRepository;
 
     @Override
-    public ExampleDomain save(ExampleDomain exampleDomain) {
+    public ExampleDomain save(ExampleDomainSave exampleDomainSave) {
+
+        ExampleDomain exampleDomain = ExampleDomain.builder()
+                .loginId(exampleDomainSave.getLoginId())
+                .password(exampleDomainSave.getPassword())
+                .age(exampleDomainSave.getAge())
+                .name(exampleDomainSave.getName())
+                .build();
 
         return exampleDomainRepository.save(exampleDomain);
     }

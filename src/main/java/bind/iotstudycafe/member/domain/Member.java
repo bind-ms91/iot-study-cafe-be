@@ -1,13 +1,16 @@
 package bind.iotstudycafe.member.domain;
 
+import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 //@DynamicInsert
 public class Member implements Serializable {
@@ -25,25 +28,21 @@ public class Member implements Serializable {
     @Enumerated(EnumType.STRING)
     private MemberGrade memberGrade;
 
-    public Member() {
-    }
-
+    @Builder
     public Member(String memberId, String memberPassword, String memberName, Integer age, MemberGrade memberGrade) {
         this.memberId = memberId;
         this.memberPassword = memberPassword;
         this.memberName = memberName;
         this.age = age;
-        this.memberGrade = memberGrade;
-//        this.memberGrade = MemberGrade.valueOf(memberGrade);
+        this.memberGrade = memberGrade != null ? memberGrade : MemberGrade.BASIC;
     }
 
-
-    public void setMemberGrade(String memberGrade) {
-        if (memberGrade == null) {
-            this.memberGrade = MemberGrade.BASIC;
-        } else {
-            this.memberGrade = MemberGrade.valueOf(memberGrade);
-        }
+    public Member update(String memberPassword, String memberName, Integer age, MemberGrade memberGrade) {
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
+        this.age = age;
+        this.memberGrade = memberGrade;
+        return this;
     }
 
     // Grade를 포함하는지 확인하는 메서드 추가

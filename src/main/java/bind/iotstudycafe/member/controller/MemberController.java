@@ -1,9 +1,5 @@
 package bind.iotstudycafe.member.controller;
 
-import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
-import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
-import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
-import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.member.domain.Member;
 import bind.iotstudycafe.member.dto.MemberSaveDto;
 import bind.iotstudycafe.member.dto.MemberSearchCond;
@@ -18,8 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,15 +35,7 @@ public class MemberController {
     @PostMapping("/save")
     public Member save(@Validated @RequestBody MemberSaveDto memberSaveDto) {
 
-        Member member = new Member();
-
-        member.setMemberId(memberSaveDto.getMemberId());
-        member.setMemberPassword(memberSaveDto.getMemberPassword());
-        member.setMemberName(memberSaveDto.getMemberName());
-        member.setAge(memberSaveDto.getAge());
-        member.setMemberGrade(memberSaveDto.getMemberGrade());
-
-        return memberService.save(member);
+        return memberService.save(memberSaveDto);
     }
 
     @Operation(summary = "id로 조회", description = "id로 조회",

@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain.repository;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 

@@ -39,13 +39,7 @@ public class ExampleDomainController {
 
         log.info("ExampleDomainController.save post exampleDomainSave: {}", exampleDomainSave);
 
-        ExampleDomain exampleDomain = new ExampleDomain();
-        exampleDomain.setLoginId(exampleDomainSave.getLoginId());
-        exampleDomain.setPassword(exampleDomainSave.getPassword());
-        exampleDomain.setName(exampleDomainSave.getName());
-        exampleDomain.setAge(exampleDomainSave.getAge());
-
-        return exampleDomainService.save(exampleDomain);
+        return exampleDomainService.save(exampleDomainSave);
     }
 
     @Operation(summary = "id로 조회", description = "id로 조회",

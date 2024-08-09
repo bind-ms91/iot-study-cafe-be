@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain.repository.memory;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
@@ -21,6 +22,7 @@ public class MemoryExampleDomainRepository implements ExampleDomainRepository {
     public ExampleDomain save(ExampleDomain exampleDomain) {
 
         exampleDomain.setId(++sequence);
+
         store.put(exampleDomain.getId(), exampleDomain);
 
         return exampleDomain;
@@ -60,9 +62,9 @@ public class MemoryExampleDomainRepository implements ExampleDomainRepository {
     public void update(Long id, ExampleDomainUpdate updateParam) {
 
         ExampleDomain findMember = findById(id).orElseThrow();
-        findMember.setName(updateParam.getName());
-        findMember.setPassword(updateParam.getPassword());
-        findMember.setAge(updateParam.getAge());
+
+        findMember.update(updateParam.getPassword(),updateParam.getName(),updateParam.getAge());
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package bind.iotstudycafe.member.service;
 
 import bind.iotstudycafe.member.domain.Member;
+import bind.iotstudycafe.member.domain.MemberGrade;
 import bind.iotstudycafe.member.dto.MemberSaveDto;
 import bind.iotstudycafe.member.dto.MemberSearchCond;
 import bind.iotstudycafe.member.dto.MemberUpdateDto;
@@ -22,9 +23,23 @@ public class MemberServiceImpl implements MemberService {
     private final MemberQueryRepository memberQueryRepository;
 
     @Override
-    public Member save(Member member) {
+    public Member save(MemberSaveDto memberSaveDto) {
+
+        MemberGrade memberGrade = getMemberGrade(memberSaveDto.getMemberGrade());
+
+        Member member = Member.builder()
+                .memberId(memberSaveDto.getMemberId())
+                .memberPassword(memberSaveDto.getMemberPassword())
+                .memberName(memberSaveDto.getMemberName())
+                .age(memberSaveDto.getAge())
+                .memberGrade(memberGrade)
+                .build();
+
+
+
         return memberRepository.save(member);
     }
+
 
     @Override
     public Optional<Member> findById(Long id) {
@@ -44,14 +59,47 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void update(Long id, MemberUpdateDto updateParam) {
         Member findMember = memberRepository.findById(id).orElseThrow();
-        findMember.setMemberGrade(updateParam.getMemberGrade());
-        findMember.setMemberPassword(updateParam.getMemberPassword());
-        findMember.setMemberName(updateParam.getMemberName());
-        findMember.setAge(updateParam.getAge());
+
+        MemberGrade memberGrade = getMemberGrade(updateParam.getMemberGrade());
+
+        findMember.update(
+                updateParam.getMemberPassword(),
+                updateParam.getMemberName(),
+                updateParam.getAge(),
+                memberGrade
+        );
+
+//        findMember.setMemberGrade(updateParam.getMemberGrade());
+//        findMember.setMemberPassword(updateParam.getMemberPassword());
+//        findMember.setMemberName(updateParam.getMemberName());
+//        findMember.setAge(updateParam.getAge());
     }
 
     @Override
     public void deleteById(Long id) {
         memberRepository.deleteById(id);
+    }
+
+//    private static MemberGrade getMemberGrade(String grade) {
+//
+//        if (grade == null) {
+//            return null;
+//        }
+//
+//        try {
+//            return MemberGrade.valueOf(grade.toUpperCase());
+//        } catch (IllegalArgumentException e) {
+//            throw new IllegalArgumentException("유효하지 않은 회원 등급입니다: " + grade, e);
+//        }
+//    }
+
+    private static MemberGrade getMemberGrade(String grade) {
+
+        if (grade == null) {
+            return null;
+        } else {
+            return MemberGrade.valueOf(grade.toUpperCase());
+        }
+
     }
 }
