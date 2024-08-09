@@ -29,23 +29,14 @@ class MemberServiceTest {
     void save() {
 
         //given
-        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
-        Member member = new Member();
-
-        member.setMemberId(memberSaveDto.getMemberId());
-        member.setMemberPassword(memberSaveDto.getMemberPassword());
-        member.setMemberName(memberSaveDto.getMemberName());
-        member.setAge(memberSaveDto.getAge());
-        member.setMemberGrade(memberSaveDto.getMemberGrade());
-
+        MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, null);
 
         //when
-        Member savedMember = memberService.save(member);
+        Member savedMember = memberService.save(memberSaveDto);
 
         //then
         Member findMember = memberService.findById(savedMember.getId()).get();
 
-        log.info("member: {}", member);
         log.info("savedMember: {}", savedMember);
         log.info("findMember: {}", findMember);
 
@@ -58,16 +49,9 @@ class MemberServiceTest {
         //given
         MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
 
-        Member member = new Member();
-        member.setMemberId(memberSaveDto.getMemberId());
-        member.setMemberPassword(memberSaveDto.getMemberPassword());
-        member.setMemberName(memberSaveDto.getMemberName());
-        member.setAge(memberSaveDto.getAge());
-        member.setMemberGrade(memberSaveDto.getMemberGrade());
-
         //when
-        Member savedMember = memberService.save(member);
-        Member findMember = memberService.findByMemberId(member.getMemberId()).get();
+        Member savedMember = memberService.save(memberSaveDto);
+        Member findMember = memberService.findByMemberId(savedMember.getMemberId()).get();
 
         //then
         log.info("savedMember: {}", savedMember);
@@ -83,14 +67,7 @@ class MemberServiceTest {
         //given
         MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
 
-        Member member = new Member();
-        member.setMemberId(memberSaveDto.getMemberId());
-        member.setMemberPassword(memberSaveDto.getMemberPassword());
-        member.setMemberName(memberSaveDto.getMemberName());
-        member.setAge(memberSaveDto.getAge());
-        member.setMemberGrade(memberSaveDto.getMemberGrade());
-
-        Member savedMember = memberService.save(member);
+        Member savedMember = memberService.save(memberSaveDto);
         Long memberId = savedMember.getId();
 
         //when
@@ -102,12 +79,11 @@ class MemberServiceTest {
         assertThat(findMember.getMemberPassword()).isEqualTo(updateParam.getMemberPassword());
         assertThat(findMember.getMemberName()).isEqualTo(updateParam.getMemberName());
         assertThat(findMember.getAge()).isEqualTo(updateParam.getAge());
-        assertThat(findMember.getMemberGrade()).isEqualTo(MemberGrade.valueOf(updateParam.getMemberGrade()));
+        assertThat(findMember.getMemberGrade()).isEqualTo(getMemberGrade(updateParam.getMemberGrade()));
         log.info("findMember: {}", findMember);
         log.info("updateParam: {}", updateParam);
 
     }
-
 
     @Test
     void findMembers() {
@@ -117,32 +93,9 @@ class MemberServiceTest {
         MemberSaveDto memberSaveDto2 = new MemberSaveDto("ms92", "1234", "조민성2", 22, "OPERATOR");
         MemberSaveDto memberSaveDto3 = new MemberSaveDto("ms93", "1235", "조민성3", 21, "BASIC");
 
-        Member member1 = new Member();
-        Member member2 = new Member();
-        Member member3 = new Member();
-
-        member1.setMemberId(memberSaveDto1.getMemberId());
-        member1.setMemberPassword(memberSaveDto1.getMemberPassword());
-        member1.setMemberName(memberSaveDto1.getMemberName());
-        member1.setAge(memberSaveDto1.getAge());
-        member1.setMemberGrade(memberSaveDto1.getMemberGrade());
-
-        member2.setMemberId(memberSaveDto2.getMemberId());
-        member2.setMemberPassword(memberSaveDto2.getMemberPassword());
-        member2.setMemberName(memberSaveDto2.getMemberName());
-        member2.setAge(memberSaveDto2.getAge());
-        member2.setMemberGrade(memberSaveDto2.getMemberGrade());
-
-        member3.setMemberId(memberSaveDto3.getMemberId());
-        member3.setMemberPassword(memberSaveDto3.getMemberPassword());
-        member3.setMemberName(memberSaveDto3.getMemberName());
-        member3.setAge(memberSaveDto3.getAge());
-        member3.setMemberGrade(memberSaveDto3.getMemberGrade());
-
-
-        Member savedMember1 = memberService.save(member1);
-        Member savedMember2 = memberService.save(member2);
-        Member savedMember3 = memberService.save(member3);
+        Member savedMember1 = memberService.save(memberSaveDto1);
+        Member savedMember2 = memberService.save(memberSaveDto2);
+        Member savedMember3 = memberService.save(memberSaveDto3);
         //when
 
         //유저 아이디로 테스트
@@ -159,7 +112,7 @@ class MemberServiceTest {
         search(null, null, null, null, "OWNER", savedMember1);
         search(null, null, null, null, "OPERATOR", savedMember2);
         search(null, null, null, null, "BASIC", savedMember3);
-        search(null, null, null, null, "", savedMember1, savedMember2, savedMember3);
+        search(null, null, null, null, null, savedMember1, savedMember2, savedMember3);
 
         //나이 테스트
         search(null, null, 23, null, null, savedMember1, savedMember2, savedMember3);
@@ -180,14 +133,7 @@ class MemberServiceTest {
         //given
         MemberSaveDto memberSaveDto = new MemberSaveDto("ms91", "123", "조민성", 23, "OPERATOR");
 
-        Member member = new Member();
-        member.setMemberId(memberSaveDto.getMemberId());
-        member.setMemberPassword(memberSaveDto.getMemberPassword());
-        member.setMemberName(memberSaveDto.getMemberName());
-        member.setAge(memberSaveDto.getAge());
-        member.setMemberGrade(memberSaveDto.getMemberGrade());
-
-        Member savedMember = memberService.save(member);
+        Member savedMember = memberService.save(memberSaveDto);
         Long memberId = savedMember.getId();
         Member findMember = memberService.findById(memberId).get();
         log.info("findMember: {}", findMember);
@@ -203,5 +149,9 @@ class MemberServiceTest {
     void search(String userId, String userName, Integer maxAge, Integer minAge, String memberGrade, Member... members) {
         List<Member> result = memberService.findAll(new MemberSearchCond(userId, userName, maxAge, minAge, memberGrade));
         assertThat(result).containsExactly(members);
+    }
+
+    private static MemberGrade getMemberGrade(String grade) {
+        return MemberGrade.valueOf(grade.toUpperCase());
     }
 }

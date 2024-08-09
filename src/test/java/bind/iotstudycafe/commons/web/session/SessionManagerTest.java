@@ -2,6 +2,7 @@ package bind.iotstudycafe.commons.web.session;
 
 import bind.iotstudycafe.commons.web.SessionConst;
 import bind.iotstudycafe.member.domain.Member;
+import bind.iotstudycafe.member.domain.MemberGrade;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +23,8 @@ class SessionManagerTest {
         HttpSession session = request.getSession();
 
         //요청에 응답 쿠키 저장
-        Member loginMember = new Member("ms91", "1234", "조민성", 33, "BASIC");
+        
+        Member loginMember = new Member("ms91", "1234", "조민성", 33, MemberGrade.BASIC);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember.getMemberId());
 
 

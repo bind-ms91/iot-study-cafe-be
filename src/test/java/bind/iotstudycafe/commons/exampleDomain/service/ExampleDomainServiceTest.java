@@ -1,6 +1,7 @@
 package bind.iotstudycafe.commons.exampleDomain.service;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainUpdate;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import bind.iotstudycafe.exampleDomain.repository.memory.MemoryExampleDomainRepository;
@@ -31,8 +32,8 @@ class ExampleDomainServiceTest {
     void findByIdToEntity() {
 
         //given
-        ExampleDomain exampleDomain = new ExampleDomain("ms90", "1111", "Chominseong", 20);
-        exampleDomainService.save(exampleDomain);
+        ExampleDomainSave exampleDomainSave = new ExampleDomainSave("ms90", "1111", "Chominseong", 20);
+        ExampleDomain exampleDomain = exampleDomainService.save(exampleDomainSave);
 
         //when
         ExampleDomain findExampleDomain = exampleDomainService.findById(exampleDomain.getId()).get();
@@ -49,9 +50,9 @@ class ExampleDomainServiceTest {
     void update() {
 
         //given
-        ExampleDomain exampleDomain = new ExampleDomain("ms90", "1111", "Chominseong", 20);
+        ExampleDomainSave exampleDomainSave = new ExampleDomainSave("ms90", "1111", "Chominseong", 20);
 
-        exampleDomainService.save(exampleDomain);
+        ExampleDomain exampleDomain = exampleDomainService.save(exampleDomainSave);
 
         Long id = exampleDomain.getId();
 
@@ -60,7 +61,7 @@ class ExampleDomainServiceTest {
         ExampleDomainUpdate updateParam = new ExampleDomainUpdate("2222", "minseong", 22);
         exampleDomainService.update(id, updateParam);
 
-        log.info("exampleDomain: {}", exampleDomain);
+        log.info("exampleDomain: {}", exampleDomainSave);
 
         log.info("updateParam: {}", updateParam);
 
@@ -76,9 +77,9 @@ class ExampleDomainServiceTest {
     void delete() {
 
         //given
-        ExampleDomain exampleDomain = new ExampleDomain("ms90", "1111", "Chominseong", 20);
+        ExampleDomainSave exampleDomainSave = new ExampleDomainSave("ms90", "1111", "Chominseong", 20);
 
-        exampleDomainService.save(exampleDomain);
+        ExampleDomain exampleDomain = exampleDomainService.save(exampleDomainSave);
 
         Long id = exampleDomain.getId();
 
