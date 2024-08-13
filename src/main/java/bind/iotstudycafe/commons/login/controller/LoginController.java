@@ -2,12 +2,8 @@ package bind.iotstudycafe.commons.login.controller;
 
 import bind.iotstudycafe.commons.login.domain.LoginDto;
 import bind.iotstudycafe.commons.login.service.LoginService;
-import bind.iotstudycafe.commons.web.SessionConst;
-import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
 import bind.iotstudycafe.member.domain.Member;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
@@ -16,12 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "로그인", description = "로그인 컨트롤러")
 @Controller
@@ -81,7 +77,7 @@ public class LoginController {
 
         log.info("loginMember: {}", loginMember);
 
-        if(loginMember == null){
+        if (loginMember == null) {
             return ResponseEntity.notFound().build();
         }
 
@@ -91,7 +87,27 @@ public class LoginController {
         session.setAttribute("loginMember", loginMember);
         session.setMaxInactiveInterval(3600);
 
+//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, String.format("JSESSIONID=%s", session.getId())).body(loginMember);
         return ResponseEntity.ok(loginMember);
+    }
+
+    @Operation(summary = "로그아웃", description = "로그아웃",
+            responses = {@ApiResponse(responseCode = "200", description = "로그아웃 성공")}
+    )
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest httpRequest, HttpServletResponse response) {
+
+        // 현재 세션을 가져옴
+        HttpSession session = httpRequest.getSession(false);
+
+        log.info("logout session: {}", session);
+
+        if (session != null) {
+            // 세션 무효화 (세션에 저장된 모든 데이터 삭제)
+            session.invalidate();
+        }
+
+        return ResponseEntity.ok("로그아웃 성공");
     }
 
 }

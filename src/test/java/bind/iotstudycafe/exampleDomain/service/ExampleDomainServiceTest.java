@@ -1,4 +1,4 @@
-package bind.iotstudycafe.commons.exampleDomain.service;
+package bind.iotstudycafe.exampleDomain.service;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
 import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;

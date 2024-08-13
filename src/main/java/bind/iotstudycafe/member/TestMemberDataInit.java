@@ -17,15 +17,15 @@ public class TestMemberDataInit {
     /**
      * 테스트용 데이터 추가
      */
-    @PostConstruct
-    public void init() {
-
-        Member Member1 = new Member("ms91", "1111", "조민성1", 21, MemberGrade.BASIC);
-        Member Member2 = new Member("ms92", "2222", "조민성2", 22, MemberGrade.OPERATOR);
-
-        memberService.save(Member1);
-        memberService.save(Member2);
-
-    }
+//    @PostConstruct
+//    public void init() {
+//
+//        MemberSaveDto Member1 = new MemberSaveDto("ms91", "1111", "조민성1", 21, "BASIC");
+//        MemberSaveDto Member2 = new MemberSaveDto("ms92", "2222", "조민성2", 22, "OPERATOR");
+//
+//        memberService.save(Member1);
+//        memberService.save(Member2);
+//
+//    }
 
 }

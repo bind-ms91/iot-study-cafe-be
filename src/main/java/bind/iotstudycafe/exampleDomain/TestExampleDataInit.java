@@ -1,6 +1,7 @@
 package bind.iotstudycafe.exampleDomain;
 
 import bind.iotstudycafe.exampleDomain.domain.ExampleDomain;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSave;
 import bind.iotstudycafe.exampleDomain.repository.ExampleDomainRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,15 @@ public class TestExampleDataInit {
     /**
      * 테스트용 데이터 추가
      */
-    @PostConstruct
-    public void init() {
-
-        ExampleDomain exampleDomain1 = new ExampleDomain("ms91", "1234", "Chominseong", 21);
-        ExampleDomain exampleDomain2 = new ExampleDomain("ms92", "1234", "Chominseong", 22);
-
-
-        exampleDomainRepository.save(exampleDomain1);
-        exampleDomainRepository.save(exampleDomain2);
-    }
+//    @PostConstruct
+//    public void init() {
+//
+//        ExampleDomainSave ExampleDomainSave1 = new ExampleDomainSave("ms91", "1234", "Chominseong", 21);
+//        ExampleDomainSave ExampleDomainSave2 = new ExampleDomainSave("ms92", "1234", "Chominseong", 22);
+//
+//
+//        exampleDomainRepository.save(ExampleDomainSave1);
+//        exampleDomainRepository.save(ExampleDomainSave2);
+//    }
 
 }
