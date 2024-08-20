@@ -1,5 +1,6 @@
 package bind.iotstudycafe.commons.login.controller;
 
+import bind.iotstudycafe.commons.config.RedisConfig;
 import bind.iotstudycafe.commons.login.domain.LoginDto;
 import bind.iotstudycafe.commons.login.service.LoginService;
 import bind.iotstudycafe.member.domain.Member;
@@ -12,18 +13,29 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.net.HttpCookie;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Optional;
 
 @Tag(name = "로그인", description = "로그인 컨트롤러")
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class LoginController {
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     private final LoginService loginService;
 
@@ -71,7 +83,7 @@ public class LoginController {
             responses = {@ApiResponse(responseCode = "200", description = "로그인 성공")}
     )
     @PostMapping("/login")
-    private ResponseEntity<Member> login(@Validated @RequestBody LoginDto loginDto, HttpServletRequest httpRequest) {
+    private ResponseEntity<Member> login(@Validated @RequestBody LoginDto loginDto, HttpServletRequest request) {
 
         Member loginMember = loginService.login(loginDto);
 
@@ -82,12 +94,11 @@ public class LoginController {
         }
 
         //로그인 성공 처리
-        HttpSession session = httpRequest.getSession();
+        HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
-        session.setAttribute("loginMember", loginMember);
-        session.setMaxInactiveInterval(3600);
+        session.setAttribute("loginMember", loginMember.getMemberId());
+//        session.setMaxInactiveInterval(3600);
 
-//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, String.format("JSESSIONID=%s", session.getId())).body(loginMember);
         return ResponseEntity.ok(loginMember);
     }
 
@@ -95,19 +106,54 @@ public class LoginController {
             responses = {@ApiResponse(responseCode = "200", description = "로그아웃 성공")}
     )
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest httpRequest, HttpServletResponse response) {
+    public ResponseEntity<String> logout(HttpServletRequest request) {
 
-        // 현재 세션을 가져옴
-        HttpSession session = httpRequest.getSession(false);
+        String sessionId = request.getHeader(HttpHeaders.COOKIE);
 
-        log.info("logout session: {}", session);
+        log.info("sessionId: {}", sessionId);
 
-        if (session != null) {
-            // 세션 무효화 (세션에 저장된 모든 데이터 삭제)
+        HttpSession session = request.getSession(false);
+
+        log.info("session: {}", session);
+
+        if(session != null) {
             session.invalidate();
         }
 
         return ResponseEntity.ok("로그아웃 성공");
+
+//        String sessionId = request.getHeader(HttpHeaders.COOKIE);
+//
+//        log.info("sessionId: {}", sessionId);
+//
+//        // 쿠키 추출
+//        Optional<Cookie> findCookie = Arrays.stream(request.getCookies())
+//                .filter(cookie -> cookie.getName().equals("JSESSIONID"))
+//                .findFirst();
+//
+//        log.info("findCookie = {}", findCookie);
+//
+//        if (findCookie.isPresent()) {
+//            String value = findCookie.get().getValue();
+//            log.info("value: {}", value);
+//        }
+//
+//        if (sessionId != null) {
+//
+//            log.info("sessionId: {}", sessionId);
+//
+//            // Base64 디코딩
+//            byte[] decodedBytes = Base64.getDecoder().decode(sessionId);
+//            String decodedSessionId = new String(decodedBytes);
+//
+//            log.info("Decoded sessionId = {}", decodedSessionId);
+//
+//            // Redis에서 세션 삭제
+//            String sessionKey = "spring:session:sessions:" + decodedSessionId;
+//            redisTemplate.delete(sessionKey);
+//        }
+//
+//        return ResponseEntity.ok("로그아웃 성공");
     }
 
 }

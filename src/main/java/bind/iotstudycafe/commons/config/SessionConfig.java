@@ -14,6 +14,8 @@ public class SessionConfig {
         serializer.setCookieName("JSESSIONID");
         serializer.setCookiePath("/");
         serializer.setDomainNamePattern("^.+?(\\w+\\.[a-z]+)$");
+        serializer.setCookieMaxAge(90); // -1 은 브라우저 종료시 만료, 초 기준
+
 //        serializer.setUseBase64Encoding(false);
         return serializer;
     }
