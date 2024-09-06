@@ -25,6 +25,9 @@ public class LoginService {
 
         //TODO 로그인 예외처리
         if (findMemberOptional.isPresent()) {
+
+            //스프링 시큐리티 적용 예정
+            //passwordEncoder.matches() 사용하여 암호화된 패워스워드 검증 예정
             return findMemberOptional.filter(m ->
                     m.getMemberId().equals(loginDto.getLoginId()) && m.getMemberPassword().equals(loginDto.getPassword()))
                     .orElse(null);

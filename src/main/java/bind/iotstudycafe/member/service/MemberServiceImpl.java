@@ -27,6 +27,8 @@ public class MemberServiceImpl implements MemberService {
 
         MemberGrade memberGrade = getMemberGrade(memberSaveDto.getMemberGrade());
 
+        //TODO 스프링시큐리티 패워스드 암호화 예정
+
         Member member = Member.builder()
                 .memberId(memberSaveDto.getMemberId())
                 .memberPassword(memberSaveDto.getMemberPassword())
