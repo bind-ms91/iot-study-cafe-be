@@ -1,5 +1,7 @@
 package bind.iotstudycafe.member.controller;
 
+import bind.iotstudycafe.commons.login.domain.LoginDto;
+import bind.iotstudycafe.exampleDomain.dto.ExampleDomainSearchCond;
 import bind.iotstudycafe.member.domain.Member;
 import bind.iotstudycafe.member.dto.MemberSaveDto;
 import bind.iotstudycafe.member.dto.MemberSearchCond;
@@ -46,6 +48,16 @@ public class MemberController {
     public Optional<Member> findByIdToEntity(@PathVariable Long id) {
 
         return memberService.findById(id);
+    }
+
+    @Operation(summary = "member id 로 조회", description = "member id 로 조회",
+            parameters = {@Parameter(name = "memberId", description = "memberId")},
+            responses = {@ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = Member.class)))}
+    )
+    @GetMapping()
+    public Optional<Member> findByMemberId(@RequestParam String memberId) {
+
+        return memberService.findByMemberId(memberId);
     }
 
     @Operation(summary = "리스트 조회", description = "리스트 조회",
