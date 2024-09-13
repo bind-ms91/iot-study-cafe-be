@@ -146,8 +146,8 @@ class MemberServiceTest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
-    void search(String userId, String userName, Integer maxAge, Integer minAge, String memberGrade, Member... members) {
-        List<Member> result = memberService.findAll(new MemberSearchCond(userId, userName, maxAge, minAge, memberGrade));
+    void search(String memberId, String memberName, Integer maxAge, Integer minAge, String memberGrade, Member... members) {
+        List<Member> result = memberService.findAll(new MemberSearchCond(memberId, memberName, maxAge, minAge, memberGrade));
         assertThat(result).containsExactly(members);
     }
 
