@@ -34,8 +34,7 @@ import java.util.Optional;
 @Slf4j
 public class LoginController {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+//    private final RedisTemplate<String, Object> redisTemplate;
 
     private final LoginService loginService;
 
@@ -93,11 +92,12 @@ public class LoginController {
             return ResponseEntity.notFound().build();
         }
 
-        //로그인 성공 처리
-        HttpSession session = request.getSession();
-        //세션에 로그인 회원 정보 보관
-        session.setAttribute("loginMember", loginMember.getMemberId());
-//        session.setMaxInactiveInterval(3600);
+        if(loginMember != null) {
+            //로그인 성공 처리
+            HttpSession session = request.getSession();
+            //세션에 로그인 회원 정보 보관
+            session.setAttribute("loginMember", loginMember.getMemberId());
+        }
 
         return ResponseEntity.ok(loginMember);
     }
